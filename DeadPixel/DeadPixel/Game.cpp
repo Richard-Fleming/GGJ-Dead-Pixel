@@ -14,6 +14,7 @@ Game::Game() :
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
 	levelLoader();
+	m_gamePlayer.initialise();
 }
 
 /// <summary>
@@ -69,6 +70,7 @@ void Game::processEvents()
 		{
 			processKeys(newEvent);
 		}
+		m_gamePlayer.processKeys(newEvent);
 	}
 }
 
@@ -79,6 +81,7 @@ void Game::processEvents()
 /// <param name="t_event">key press event</param>
 void Game::processKeys(sf::Event t_event)
 {
+	
 	if (sf::Keyboard::Escape == t_event.key.code)
 	{
 		m_exitGame = true;
@@ -95,6 +98,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+	m_gamePlayer.update(t_deltaTime);
 }
 
 /// <summary>
@@ -107,6 +111,7 @@ void Game::render()
 	{
 		m_platforms[i].draw(m_window);
 	}
+	m_gamePlayer.render(m_window);
 	m_window.display();
 }
 

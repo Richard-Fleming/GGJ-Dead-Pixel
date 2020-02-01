@@ -18,6 +18,8 @@ public:
 	/// </summary>
 	void run();
 
+	
+
 private:
 
 	void processEvents();
@@ -28,7 +30,7 @@ private:
 	void setupFontAndText();
 	void setupSprite();
 	void levelLoader();
-
+	Player m_gamePlayer;
 	sf::RenderWindow m_window; // main SFML window
 	bool m_exitGame; // control exiting game
 
