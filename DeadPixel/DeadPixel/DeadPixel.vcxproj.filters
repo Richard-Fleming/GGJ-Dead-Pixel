@@ -52,7 +52,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="ASSETS\IMAGES\SFML-LOGO.png">
+    <Image Include="ASSETS\IMAGES\block.png">
       <Filter>Resource Files\IMAGES</Filter>
     </Image>
   </ItemGroup>
@@ -66,6 +66,9 @@
       <Filter>Resource Files\Levels</Filter>
     </Text>
     <Text Include="Levels\Level2.txt">
+      <Filter>Resource Files\Levels</Filter>
+    </Text>
+    <Text Include="Levels\Level3.txt">
       <Filter>Resource Files\Levels</Filter>
     </Text>
   </ItemGroup>

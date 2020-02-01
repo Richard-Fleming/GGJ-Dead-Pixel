@@ -106,8 +106,8 @@ void Game::update(sf::Time t_deltaTime)
 	m_gamePlayer.update(t_deltaTime);
 	for (int i = 0; i < m_platforms.size(); i++)
 	{
-		m_platforms[i].playerContact(m_gamePlayer.hitBlock(m_platforms[i].getBody()), 
-															m_gamePlayer.ColorArray[m_gamePlayer.colorNum]);
+		m_platforms[i].playerContact(m_gamePlayer.hitBlock(m_platforms[i].getBody()), m_gamePlayer.getBody().getFillColor());
+		m_platforms[i].update();
 	}
 	if (m_gamePlayer.getBody().getGlobalBounds().intersects(m_bucket.getGlobalBounds()))
 	{
@@ -152,8 +152,6 @@ void Game::setupSprite()
 		std::cout << "Bucket's fucked up." << std::endl;
 	}
 	m_bucket.setTexture(m_bucketTexture);
-	m_bucket.setPosition(m_platforms[3].getBody().getPosition().x - (m_bucket.getGlobalBounds().width / 2) + (m_platforms[3].getBody().getGlobalBounds().width / 2), 
-						m_platforms[3].getBody().getPosition().y - m_bucket.getGlobalBounds().height);
 }
 
 void Game::moveCamera()

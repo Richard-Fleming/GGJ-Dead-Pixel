@@ -31,10 +31,7 @@
     <ClInclude Include="ScreenSize.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="ASSETS\IMAGES\SFML-LOGO.png">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
-    </Image>
+    <Image Include="ASSETS\IMAGES\block.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="ASSETS\FONTS\ariblk.ttf">
@@ -47,6 +44,7 @@
   <ItemGroup>
     <Text Include="Levels\Level1.txt" />
     <Text Include="Levels\Level2.txt" />
+    <Text Include="Levels\Level3.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
