@@ -4,9 +4,10 @@ Block::Block()
 {
 }
 
-void Block::setUp(sf::Vector2f t_pos)
+void Block::setUp(sf::Vector2f t_pos, sf::Vector2f t_size)
 {
 	m_body.setPosition(t_pos);
+	m_body.setSize(t_size);
 	m_body.setFillColor(GREY);
 }
 

@@ -1,14 +1,4 @@
-/// <summary>
-/// @author Peter Lowe
-/// @date May 2019
-///
-/// you need to change the above lines or lose marks
-/// </summary>
-
 #include "Game.h"
-#include <iostream>
-
-
 
 /// <summary>
 /// default constructor
@@ -19,13 +9,15 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ 1600U, 1200U, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
+	, m_currentLevel{ 1 }
 {
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
-
 	m_startCam = sf::Vector2f(800.0f, 600.0f);//should be set off player position
 	m_endCam = sf::Vector2f(1600.0f, 600.0f);//should be set off end position
 	m_cameraSpeed = 1;//may be based off level
+	levelLoader();
+	m_gamePlayer.initialise();
 }
 
 /// <summary>
@@ -81,6 +73,7 @@ void Game::processEvents()
 		{
 			processKeys(newEvent);
 		}
+		m_gamePlayer.processKeys(newEvent);
 	}
 }
 
@@ -91,6 +84,7 @@ void Game::processEvents()
 /// <param name="t_event">key press event</param>
 void Game::processKeys(sf::Event t_event)
 {
+	
 	if (sf::Keyboard::Escape == t_event.key.code)
 	{
 		m_exitGame = true;
@@ -107,7 +101,8 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	moveCamera();
+	//moveCamera();//off while setting up
+	m_gamePlayer.update(t_deltaTime);
 }
 
 /// <summary>
@@ -116,6 +111,11 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear();
+	for (int i = 0; i < m_platforms.size(); i++)
+	{
+		m_platforms[i].draw(m_window);
+	}
+	m_gamePlayer.render(m_window);
 	m_window.display();
 }
 
@@ -139,4 +139,44 @@ void Game::moveCamera()
 	sf::View tempView = m_window.getView();
 	tempView.setCenter(tempView.getCenter().x + m_cameraSpeed, tempView.getCenter().y);
 	m_window.setView(tempView);
+}
+
+void Game::levelLoader()
+{
+	std::string line;
+	std::ifstream levelFile("Level" + std::to_string(m_currentLevel) + ".txt");
+	if (levelFile.is_open())
+	{
+		while (std::getline(levelFile, line))
+		{
+			std::cout << "Loading..." << std::endl;
+			m_xPosString = line;
+			m_xPosString.replace(4, 500, "");
+			m_converter.str(m_xPosString);
+			m_converter >> m_position.x;
+			m_converter.clear();
+
+			m_yPosString = line;
+			m_yPosString.replace(1, 5, "");
+			m_converter.str(m_yPosString);
+			m_converter >> m_position.y;
+			m_converter.clear();
+
+			m_xSizeString = line;
+			m_xSizeString.replace(0, 10, "");
+			m_converter.str(m_xSizeString);
+			m_converter >> m_size.x;
+			m_converter.clear();
+
+			m_ySizeString = line;
+			m_ySizeString.replace(0, 14, "");
+			m_converter.str(m_ySizeString);
+			m_converter >> m_size.y;
+			m_converter.clear();
+
+			m_tempBlock.setUp(m_position, m_size);
+			m_platforms.push_back(m_tempBlock);
+		}
+		levelFile.close();
+	}
 }

@@ -1,15 +1,12 @@
-/// <summary>
-/// author Pete Lowe May 2019
-/// you need to change the above line or lose marks
-/// </summary>
 #ifndef GAME_HPP
 #define GAME_HPP
-/// <summary>
-/// include guards used so we don't process this file twice
-/// same as #pragma once
-/// Don't forget the endif at the bottom
-/// </summary>
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include "Block.h"
+#include "Player.h"
 
 class Game
 {
@@ -21,6 +18,8 @@ public:
 	/// </summary>
 	void run();
 
+	
+
 private:
 
 	void processEvents();
@@ -31,12 +30,25 @@ private:
 	void setupFontAndText();
 	void setupSprite();
 	void moveCamera();
-
-	sf::RenderWindow m_window; // main SFML window
-	bool m_exitGame; // control exiting game
+	void levelLoader();
 
 	sf::Vector2f m_startCam, m_endCam;
 	float m_cameraSpeed;
+	
+	Player m_gamePlayer;
+	sf::RenderWindow m_window; // main SFML window
+	bool m_exitGame; // control exiting game
+
+	int m_currentLevel;
+	sf::Vector2f m_position;
+	std::string m_xPosString;
+	std::string m_yPosString;
+	sf::Vector2f m_size;
+	std::string m_xSizeString;
+	std::string m_ySizeString;
+	std::stringstream m_converter;
+	Block m_tempBlock;
+	std::vector<Block> m_platforms;
 };
 
 #endif // !GAME_HPP
