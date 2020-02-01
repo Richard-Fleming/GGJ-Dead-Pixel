@@ -3,6 +3,14 @@
 Player::Player()
 {
 	m_player.setFillColor(ColorArray[0]);
+	if (!playerTexture.loadFromFile("ASSETS//IMAGES//Brush.png"))
+	{
+	}
+	m_player.setTexture(&playerTexture);
+	if (!handleTexture.loadFromFile("ASSETS//IMAGES//BrushHandle.png"))
+	{
+	}
+	m_playerHandle.setTexture(&handleTexture);
 }
 
 Player::~Player()
@@ -18,11 +26,15 @@ void Player::initialise()
 	m_player.setPosition(m_playerLocation);
 	m_player.setSize(playerSize);
 	m_player.setOrigin(playerSize.x/2,playerSize.y/2);
+	m_playerHandle.setPosition(m_playerLocation);
+	m_playerHandle.setSize(playerSize);
+	m_playerHandle.setOrigin(playerSize.x / 2, playerSize.y / 2);
 }
  
 void Player::render(sf::RenderWindow& t_window)
 {
 	t_window.draw(m_player);
+	t_window.draw(m_playerHandle);
 }
 
 void Player::update(sf::Time t_deltaTime)
@@ -32,13 +44,14 @@ void Player::update(sf::Time t_deltaTime)
 	stopPlayer();
 	fall();
 	colorChanger();
+	m_playerHandle.setPosition(m_player.getPosition());
 }
 
 void Player::processKeys(sf::Event t_newEvent)
 {
 	if (t_newEvent.type == sf::Event::KeyReleased)
 	{
-		if (sf::Keyboard::Space == t_newEvent.key.code || sf::Keyboard::Up == t_newEvent.key.code)
+		if (sf::Keyboard::Space == t_newEvent.key.code || sf::Keyboard::Up == t_newEvent.key.code || sf::Keyboard::W == t_newEvent.key.code)
 		{
 			
 			spacePressed++;
@@ -63,6 +76,27 @@ void Player::movePlayer()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		left();
+	}
+	if (m_playerVelocity.x < 0)
+	{
+		m_player.setScale(-1,1);
+		m_playerHandle.setScale(-1, 1);
+	}
+	else if (m_playerVelocity.x > 0)
+	{
+		m_player.setScale(1, 1);
+		m_playerHandle.setScale(1, 1);
+	}
+	int tempScaleX = m_player.getScale().x;
+	if (m_playerVelocity.y < 0)
+	{
+		m_player.setScale(tempScaleX, -1);
+		m_playerHandle.setScale(tempScaleX, -1);
+	}
+	else if (m_playerVelocity.y > 0)
+	{
+		m_player.setScale(tempScaleX, 1);
+		m_playerHandle.setScale(tempScaleX, 1);
 	}
 }
 

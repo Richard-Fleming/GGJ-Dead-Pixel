@@ -32,6 +32,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="ASSETS\IMAGES\block.png" />
+    <Image Include="ASSETS\IMAGES\Brush.png" />
+    <Image Include="ASSETS\IMAGES\BrushBristle.png" />
+    <Image Include="ASSETS\IMAGES\BrushHandle.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="ASSETS\FONTS\ariblk.ttf">
