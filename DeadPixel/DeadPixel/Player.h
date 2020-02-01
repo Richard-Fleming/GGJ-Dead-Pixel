@@ -26,6 +26,7 @@ public:
 protected:
 	bool APressed{ false };
 	bool DPressed{ false };
+	int spacePressed{ 0 };
 	const sf::Vector2f playerSize{ 20.0f,20.0f };
 	const sf::Vector2f Jumppower{ 0,-50 };
 	const sf::Vector2f gravity{ 0,3 };
