@@ -7,6 +7,7 @@
 #include <sstream>
 #include "Block.h"
 #include "Player.h"
+#include "ScreenSize.h"
 
 class Game
 {

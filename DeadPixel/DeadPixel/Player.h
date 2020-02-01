@@ -1,6 +1,6 @@
 #pragma once
-
 #include <SFML\Graphics.hpp>
+#include "ScreenSize.h"
 
 class Player
 {
@@ -27,7 +27,7 @@ protected:
 	bool APressed{ false };
 	bool DPressed{ false };
 	const sf::Vector2f playerSize{ 20.0f,20.0f };
-	const sf::Vector2f Jumppower{ 0,-35 };
+	const sf::Vector2f Jumppower{ 0,-50 };
 	const sf::Vector2f gravity{ 0,3 };
 	sf::RectangleShape m_player;
 	sf::Clock colorClock;
