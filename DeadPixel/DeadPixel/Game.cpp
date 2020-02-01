@@ -11,7 +11,7 @@ Game::Game() :
 	m_exitGame{false} //when true game will exit
 	, m_currentLevel{ 1 }
 	, m_currentState{Gamestate::Gameplay}
-	, M_MAX_LEVEL{3}
+	, M_MAX_LEVEL{4}
 {
 	m_alpha = 255;
 	m_alphaDecrement = m_alpha / M_MAX_LEVEL;

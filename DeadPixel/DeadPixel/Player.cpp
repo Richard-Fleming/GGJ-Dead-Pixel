@@ -98,10 +98,6 @@ void Player::slowPlayer()
 	{
 		m_playerVelocity.x = 0;
 	}
-	if (m_playerLocation.x > s_screenWidth-10)
-	{
-		m_playerLocation.x = s_screenWidth-10;
-	}
 	if (m_playerLocation.x < 10)
 	{
 		m_playerLocation.x = 10;
