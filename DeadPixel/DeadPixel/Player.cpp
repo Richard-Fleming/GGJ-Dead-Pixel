@@ -19,7 +19,7 @@ void Player::initialise()
 	m_player.setSize(playerSize);
 	m_player.setOrigin(playerSize.x/2,playerSize.y/2);
 }
-
+ 
 void Player::render(sf::RenderWindow& t_window)
 {
 	t_window.draw(m_player);
@@ -31,7 +31,7 @@ void Player::update(sf::Time t_deltaTime)
 	slowPlayer();
 	stopPlayer();
 	fall();
-	colorRandomiser();
+	colorChanger();
 }
 
 void Player::processKeys(sf::Event t_newEvent)
@@ -154,12 +154,16 @@ void Player::fall()
 	}
 }
 
-void Player::colorRandomiser()
+void Player::colorChanger()
 {
 	TimeSinceLastColor += colorClock.restart();
-	if (TimeSinceLastColor > sf::seconds(3))
+	if (TimeSinceLastColor > sf::seconds(2))
 	{
-		colorNum = rand() % 6;
+		colorNum++;
+		if (colorNum >= 6)
+		{
+			colorNum = 0;
+		}
 		m_player.setFillColor(ColorArray[colorNum]);
 		TimeSinceLastColor = sf::seconds(0);
 	}
@@ -175,20 +179,43 @@ bool Player::hitBlock(sf::RectangleShape t_block)
 {
 	if (m_player.getGlobalBounds().intersects(t_block.getGlobalBounds()))
 	{
-		if (m_player.getPosition().y + (playerSize.y/2) > t_block.getPosition().y && m_playerVelocity.y > 0)
+		sf::RectangleShape tempPlayer = m_player;
+		tempPlayer.move(-m_playerVelocity.x,0);
+		if (!tempPlayer.getGlobalBounds().intersects(t_block.getGlobalBounds()))
 		{
-			m_player.setPosition(m_player.getPosition().x, t_block.getPosition().y - (playerSize.y / 2));
-			m_playerLocation.y = m_player.getPosition().y;
-			m_playerVelocity.y = 0;
-			spacePressed = 0;
-			return true;
+			if (m_playerVelocity.x > 0)
+			{
+				m_player.setPosition(t_block.getPosition().x - (playerSize.y / 2), m_player.getPosition().y);
+				m_playerLocation.x = m_player.getPosition().x;
+				m_playerVelocity.x = 0;
+				return true;
+			}
+			else if (m_playerVelocity.x < 0)
+			{
+				m_player.setPosition(t_block.getPosition().x + t_block.getGlobalBounds().width + (playerSize.y / 2), m_player.getPosition().y);
+				m_playerLocation.x = m_player.getPosition().x;
+				m_playerVelocity.x = 0;
+				return true;
+			}
 		}
-		else if (m_player.getPosition().y - (playerSize.y / 2) < t_block.getPosition().y + t_block .getSize().y && m_playerVelocity.y < 0)
+		else
 		{
-			m_player.setPosition(m_player.getPosition().x, t_block.getPosition().y + t_block.getSize().y + (playerSize.y /2));
-			m_playerLocation.y = m_player.getPosition().y;
-			m_playerVelocity.y = 0;
-			return true;
+
+			if (m_player.getPosition().y + (playerSize.y / 2) > t_block.getPosition().y&& m_playerVelocity.y > 0)
+			{
+				m_player.setPosition(m_player.getPosition().x, t_block.getPosition().y - (playerSize.y / 2));
+				m_playerLocation.y = m_player.getPosition().y;
+				m_playerVelocity.y = 0;
+				spacePressed = 0;
+				return true;
+			}
+			else if (m_player.getPosition().y - (playerSize.y / 2) < t_block.getPosition().y + t_block.getSize().y && m_playerVelocity.y < 0)
+			{
+				m_player.setPosition(m_player.getPosition().x, t_block.getPosition().y + t_block.getSize().y + (playerSize.y / 2));
+				m_playerLocation.y = m_player.getPosition().y;
+				m_playerVelocity.y = 0;
+				return true;
+			}
 		}
 	}
 

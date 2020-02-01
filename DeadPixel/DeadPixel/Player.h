@@ -18,7 +18,7 @@ public:
 	void left();
 	void right();
 	void fall();
-	void colorRandomiser();
+	void colorChanger();
 	sf::RectangleShape getBody();
 	bool hitBlock(sf::RectangleShape t_block);
 	bool playerState;
