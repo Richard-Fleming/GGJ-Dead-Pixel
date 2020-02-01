@@ -26,6 +26,7 @@
 /// main enrtry point
 /// </summary>
 /// <returns>success or failure</returns>
+
 int main()
 {
 	Game game;

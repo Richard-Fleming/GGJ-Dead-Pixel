@@ -11,7 +11,7 @@ Player::~Player()
 void Player::initialise()
 {
 	srand(time(NULL));
-	m_playerLocation = { 400,500 };
+	m_playerLocation = { s_screenWidth/2,s_screenHeight-100 };
 	m_playerVelocity = { 0,0 };
 	m_player.setPosition(m_playerLocation);
 	m_player.setSize(playerSize);
@@ -68,14 +68,14 @@ void Player::stopPlayer()
 	{
 		m_playerVelocity = { 0,0 };
 	}
-	if (m_playerLocation.x >= 790)
+	if (m_playerLocation.x >= s_screenWidth-10)
 	{
 		m_playerVelocity = { 0,0 };
 	}
-	if (m_playerLocation.y >= 580)
+	if (m_playerLocation.y >= s_screenHeight-20)
 	{
 		m_playerVelocity.y = 0;
-		m_playerLocation.y = 580;
+		m_playerLocation.y = s_screenHeight-20;
 	}
 }
 
@@ -93,9 +93,9 @@ void Player::slowPlayer()
 	{
 		m_playerVelocity.x = 0;
 	}
-	if (m_playerLocation.x > 780)
+	if (m_playerLocation.x > s_screenWidth-10)
 	{
-		m_playerLocation.x = 780;
+		m_playerLocation.x = s_screenWidth-10;
 	}
 	if (m_playerLocation.x < 10)
 	{
@@ -123,7 +123,7 @@ void Player::left()
 
 void Player::right()
 {
-	if (m_playerLocation.x < 780)
+	if (m_playerLocation.x < s_screenWidth-10)
 	{
 		if (m_playerVelocity.x < 7 && m_playerVelocity.x > -7)
 			m_playerVelocity.x = 5;

@@ -7,7 +7,7 @@
 /// load and setup thne image
 /// </summary>
 Game::Game() :
-	m_window{ sf::VideoMode{ 1600U, 1200U, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ s_screenWidth, s_screenHeight, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
 	, m_currentLevel{ 1 }
 {
