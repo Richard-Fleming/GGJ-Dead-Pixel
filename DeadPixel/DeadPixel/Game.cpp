@@ -7,12 +7,13 @@
 /// load and setup thne image
 /// </summary>
 Game::Game() :
-	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ 1600U, 1200U, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
 	, m_currentLevel{ 1 }
 {
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
+	levelLoader();
 }
 
 /// <summary>
@@ -102,6 +103,10 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear();
+	for (int i = 0; i < m_platforms.size(); i++)
+	{
+		m_platforms[i].draw(m_window);
+	}
 	m_window.display();
 }
 
@@ -120,11 +125,43 @@ void Game::setupSprite()
 {
 }
 
-void Game::levelLoader(Block t_block)
+void Game::levelLoader()
 {
-	std::ofstream levelFile("Level" + std::to_string(m_currentLevel) + ".txt");
+	std::string line;
+	std::ifstream levelFile("Level" + std::to_string(m_currentLevel) + ".txt");
 	if (levelFile.is_open())
 	{
+		while (std::getline(levelFile, line))
+		{
+			std::cout << "Loading..." << std::endl;
+			m_xPosString = line;
+			m_xPosString.replace(4, 500, "");
+			m_converter.str(m_xPosString);
+			m_converter >> m_position.x;
+			m_converter.clear();
 
+			m_yPosString = line;
+			m_yPosString.replace(1, 5, "");
+			m_converter.str(m_yPosString);
+			m_converter >> m_position.y;
+			m_converter.clear();
+
+			m_xSizeString = line;
+			m_xSizeString.replace(0, 10, "");
+			m_converter.str(m_xSizeString);
+			m_converter >> m_size.x;
+			m_converter.clear();
+
+			m_ySizeString = line;
+			m_ySizeString.replace(0, 14, "");
+			m_converter.str(m_ySizeString);
+			m_converter >> m_size.y;
+			m_converter.clear();
+
+			m_tempBlock.setUp(m_position, m_size);
+			m_platforms.push_back(m_tempBlock);
+		}
+		levelFile.close();
 	}
+
 }
