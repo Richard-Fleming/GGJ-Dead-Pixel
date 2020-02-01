@@ -44,6 +44,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </Font>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Levels\Level1.txt" />
+    <Text Include="Levels\Level2.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{dd516f58-d09b-4125-b04c-0c57d3279e28}</ProjectGuid>

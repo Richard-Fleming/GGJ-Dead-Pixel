@@ -19,6 +19,9 @@
     <Filter Include="Resource Files\IMAGES">
       <UniqueIdentifier>{1d793ccc-0d22-4eea-8d0e-c5b5a5270a40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Levels">
+      <UniqueIdentifier>{3e81abc0-6890-4eb2-ac9e-c71a90b2d2cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,5 +60,13 @@
     <Font Include="ASSETS\FONTS\ariblk.ttf">
       <Filter>Resource Files\FONTS</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Levels\Level1.txt">
+      <Filter>Resource Files\Levels</Filter>
+    </Text>
+    <Text Include="Levels\Level2.txt">
+      <Filter>Resource Files\Levels</Filter>
+    </Text>
   </ItemGroup>
 </Project>
