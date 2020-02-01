@@ -9,7 +9,7 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ s_screenWidth, s_screenHeight, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
-	, m_currentLevel{ 2 }
+	, m_currentLevel{ 1 }
 	, m_currentState{Gamestate::Gameplay}
 	, M_MAX_LEVEL{4}
 {
