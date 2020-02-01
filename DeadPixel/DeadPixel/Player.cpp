@@ -2,6 +2,7 @@
 #include <ctime>
 Player::Player()
 {
+	m_player.setFillColor(ColorArray[0]);
 }
 
 Player::~Player()
@@ -17,7 +18,6 @@ void Player::initialise()
 	m_player.setPosition(m_playerLocation);
 	m_player.setSize(playerSize);
 	m_player.setOrigin(playerSize.x/2,playerSize.y/2);
-	m_player.setFillColor(ColorArray[0]);
 }
 
 void Player::render(sf::RenderWindow& t_window)
@@ -142,11 +142,8 @@ void Player::right()
 	{
 		m_playerVelocity.x = 0;
 	}
-	if (m_playerLocation.x < s_screenWidth-10)
-	{
-		if (m_playerVelocity.x < 7 && m_playerVelocity.x > -7)
+	if (m_playerVelocity.x < 7 && m_playerVelocity.x > -7)
 			m_playerVelocity.x += 0.5;
-	}
 }
 
 void Player::fall()
