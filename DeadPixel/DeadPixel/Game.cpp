@@ -9,7 +9,7 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ s_screenWidth, s_screenHeight, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
-	, m_currentLevel{ 1 }
+	, m_currentLevel{ 3 }
 	, m_currentState{Gamestate::Gameplay}
 	, M_MAX_LEVEL{4}
 {
@@ -139,6 +139,11 @@ void Game::update(sf::Time t_deltaTime)
 				m_currentState = Gamestate::Win;
 				m_alpha = 255;
 				m_grayScreen.setColor(sf::Color(255, 255, 255, m_alpha));
+				m_grayScreen.setPosition(0, 0);
+				m_finalSprite.setPosition(0, 0);
+				sf::View tempView = m_window.getView();
+				tempView.setCenter(800, 600);
+				m_window.setView(tempView);
 			}
 			else
 			{
@@ -159,6 +164,20 @@ void Game::update(sf::Time t_deltaTime)
 		{
 			m_alpha -= 1;
 			m_grayScreen.setColor(sf::Color(255, 255, 255, m_alpha));
+		}
+		if (m_alpha == 0)
+		{
+			m_bird.setPosition(m_bird.getPosition().x - 5, m_bird.getPosition().y);
+			if (m_bird.getPosition().x == m_window.getView().getCenter().x + 100)
+			{
+				m_birdTexture.loadFromFile("ASSETS//IMAGES//BirdFlap.png");
+				m_bird.setTexture(m_birdTexture);
+			}
+			else if (m_bird.getPosition().x == m_window.getView().getCenter().x - 100)
+			{
+				m_birdTexture.loadFromFile("ASSETS//IMAGES//BirdNotFlap.png");
+				m_bird.setTexture(m_birdTexture);
+			}
 		}
 	}
 }
@@ -184,6 +203,7 @@ void Game::render()
 	{
 		m_window.draw(m_finalSprite);
 		m_window.draw(m_grayScreen);
+		m_window.draw(m_bird);
 	}
 	m_window.display();
 }
@@ -218,6 +238,13 @@ void Game::setupSprite()
 		std::cout << "Fucked up screen's fucked up." << std::endl;
 	}
 	m_grayScreen.setTexture(m_grayScreenTexture);
+
+	if (!m_birdTexture.loadFromFile("ASSETS//IMAGES//BirdNotFlap.png"))
+	{
+		std::cout << "Fucked Up Not Flapping Bird" << std::endl;
+	}
+	m_bird.setTexture(m_birdTexture);
+	m_bird.setPosition(m_window.getView().getCenter().x + (s_screenWidth), s_screenHeight / 2);
 }
 
 void Game::moveCamera()

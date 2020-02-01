@@ -52,6 +52,8 @@ private:
 	sf::Texture m_finalSpriteTexture;
 	sf::Sprite m_grayScreen;
 	sf::Texture m_grayScreenTexture;
+	sf::Sprite m_bird;
+	sf::Texture m_birdTexture;
 	sf::Vector2f m_position;
 	std::string m_xPosString;
 	std::string m_yPosString;
