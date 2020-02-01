@@ -182,7 +182,7 @@ void Player::right()
 
 void Player::fall()
 {
-	if (m_playerVelocity.y < 15 )
+	if (true)//m_playerVelocity.y < 15 )
 	{
 		m_playerVelocity += gravity;
 	}
@@ -254,4 +254,12 @@ bool Player::hitBlock(sf::RectangleShape t_block)
 	}
 
 	return false;
+}
+
+void Player::cameraPush(sf::View t_view)
+{
+	if (t_view.getCenter().x - (t_view.getSize().x/2) +20 > m_player.getPosition().x)
+	{
+		right();
+	}
 }

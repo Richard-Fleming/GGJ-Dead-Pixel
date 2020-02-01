@@ -21,6 +21,7 @@ public:
 	void colorChanger();
 	sf::RectangleShape getBody();
 	bool hitBlock(sf::RectangleShape t_block);
+	void cameraPush(sf::View t_view);
 	bool playerState;
 	int colorNum = 0;
 	sf::Color ColorArray[6] = { sf::Color::Blue,sf::Color::Green,sf::Color::Red,sf::Color::Magenta,sf::Color::Yellow,sf::Color::Cyan };

@@ -33,7 +33,6 @@
   <ItemGroup>
     <Image Include="ASSETS\IMAGES\block.png" />
     <Image Include="ASSETS\IMAGES\Brush.png" />
-    <Image Include="ASSETS\IMAGES\BrushBristle.png" />
     <Image Include="ASSETS\IMAGES\BrushHandle.png" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +47,7 @@
     <Text Include="Levels\Level1.txt" />
     <Text Include="Levels\Level2.txt" />
     <Text Include="Levels\Level3.txt" />
+    <Text Include="Levels\Level5.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
