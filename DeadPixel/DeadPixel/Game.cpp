@@ -14,7 +14,7 @@ Game::Game() :
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
 	m_startCam = sf::Vector2f(800.0f, 600.0f);//should be set off player position
-	m_endCam = sf::Vector2f(1600.0f, 600.0f);//should be set off end position
+	m_endCam = sf::Vector2f(1400.0f, 600.0f);//should be set off end position
 	m_cameraSpeed = 1;//may be based off level
 	levelLoader();
 	m_gamePlayer.initialise();
@@ -101,7 +101,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	//moveCamera();//off while setting up
+	moveCamera();//off while setting up
 	m_gamePlayer.update(t_deltaTime);
 	for (int i = 0; i < m_platforms.size(); i++)
 	{
@@ -141,8 +141,11 @@ void Game::setupSprite()
 void Game::moveCamera()
 {
 	sf::View tempView = m_window.getView();
-	tempView.setCenter(tempView.getCenter().x + m_cameraSpeed, tempView.getCenter().y);
-	m_window.setView(tempView);
+	if (m_endCam.x > tempView.getCenter().x)
+	{
+		tempView.setCenter(tempView.getCenter().x + m_cameraSpeed, tempView.getCenter().y);
+		m_window.setView(tempView);
+	}
 }
 
 void Game::levelLoader()
@@ -183,4 +186,7 @@ void Game::levelLoader()
 		}
 		levelFile.close();
 	}
+	sf::View tempView = m_window.getView();
+	tempView.setCenter(m_startCam.x, tempView.getCenter().y);
+	m_window.setView(tempView);
 }
