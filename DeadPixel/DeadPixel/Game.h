@@ -30,7 +30,12 @@ private:
 	
 	void setupFontAndText();
 	void setupSprite();
+	void moveCamera();
 	void levelLoader();
+
+	sf::Vector2f m_startCam, m_endCam;
+	float m_cameraSpeed;
+	
 	Player m_gamePlayer;
 	sf::RenderWindow m_window; // main SFML window
 	bool m_exitGame; // control exiting game
@@ -45,7 +50,6 @@ private:
 	std::stringstream m_converter;
 	Block m_tempBlock;
 	std::vector<Block> m_platforms;
-
 };
 
 #endif // !GAME_HPP

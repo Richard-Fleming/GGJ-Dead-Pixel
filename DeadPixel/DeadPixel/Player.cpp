@@ -77,11 +77,13 @@ void Player::stopPlayer()
 	{
 		m_playerVelocity = { 0,0 };
 	}
+
 	if (m_playerLocation.y >= s_screenHeight-20)
 	{
 		m_playerVelocity.y = 0;
 		spacePressed = 0;
 		m_playerLocation.y = s_screenHeight-20;
+
 	}
 }
 
@@ -172,4 +174,27 @@ void Player::colorRandomiser()
 	
 
 
+}
+
+bool Player::hitBlock(sf::RectangleShape t_block)
+{
+	if (m_player.getGlobalBounds().intersects(t_block.getGlobalBounds()))
+	{
+		if (m_player.getPosition().y + (playerSize.y/2) > t_block.getPosition().y && m_playerVelocity.y > 0)
+		{
+			m_player.setPosition(m_player.getPosition().x, t_block.getPosition().y - (playerSize.y / 2));
+			m_playerLocation.y = m_player.getPosition().y;
+			m_playerVelocity.y = 0;
+			return true;
+		}
+		else if (m_player.getPosition().y - (playerSize.y / 2) < t_block.getPosition().y + t_block .getSize().y && m_playerVelocity.y < 0)
+		{
+			m_player.setPosition(m_player.getPosition().x, t_block.getPosition().y + t_block.getSize().y + (playerSize.y /2));
+			m_playerLocation.y = m_player.getPosition().y;
+			m_playerVelocity.y = 0;
+			return true;
+		}
+	}
+
+	return false;
 }
