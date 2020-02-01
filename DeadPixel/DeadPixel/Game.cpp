@@ -101,11 +101,12 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	//moveCamera();//off while setting up
+	moveCamera();//off while setting up
 	m_gamePlayer.update(t_deltaTime);
 	for (int i = 0; i < m_platforms.size(); i++)
 	{
-		m_gamePlayer.hitBlock(m_platforms[i].getBody());
+		m_platforms[i].playerContact(m_gamePlayer.hitBlock(m_platforms[i].getBody()), 
+															m_gamePlayer.ColorArray[m_gamePlayer.colorNum]);
 	}
 }
 
@@ -161,7 +162,7 @@ void Game::levelLoader()
 			m_converter.clear();
 
 			m_yPosString = line;
-			m_yPosString.replace(1, 5, "");
+			m_yPosString.replace(0, 5, "");
 			m_converter.str(m_yPosString);
 			m_converter >> m_position.y;
 			m_converter.clear();
