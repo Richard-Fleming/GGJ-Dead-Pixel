@@ -55,6 +55,15 @@
     <Image Include="ASSETS\IMAGES\block.png">
       <Filter>Resource Files\IMAGES</Filter>
     </Image>
+    <Image Include="ASSETS\IMAGES\Brush.png">
+      <Filter>Resource Files\IMAGES</Filter>
+    </Image>
+    <Image Include="ASSETS\IMAGES\BrushBristle.png">
+      <Filter>Resource Files\IMAGES</Filter>
+    </Image>
+    <Image Include="ASSETS\IMAGES\BrushHandle.png">
+      <Filter>Resource Files\IMAGES</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="ASSETS\FONTS\ariblk.ttf">

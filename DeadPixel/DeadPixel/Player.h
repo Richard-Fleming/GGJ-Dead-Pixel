@@ -34,12 +34,12 @@ protected:
 	const sf::Vector2f playerSize{ 50.0f,50.0f };
 	const sf::Vector2f Jumppower{ 0,-25 };
 	const sf::Vector2f gravity{ 0,2 };
-	sf::RectangleShape m_player;
+	sf::RectangleShape m_player, m_playerHandle;
 	sf::Clock colorClock;
 	sf::Time TimeSinceLastColor;
 	sf::Vector2f m_playerLocation;
 	sf::Vector2f m_playerVelocity;
-
+	sf::Texture playerTexture, handleTexture;
 
 
 };
