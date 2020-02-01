@@ -19,7 +19,7 @@ public:
 	void right();
 	void fall();
 	void colorRandomiser();
-
+	bool hitBlock(sf::RectangleShape t_block);
 
 
 

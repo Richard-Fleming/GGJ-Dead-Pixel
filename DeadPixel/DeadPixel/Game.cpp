@@ -103,6 +103,10 @@ void Game::update(sf::Time t_deltaTime)
 	}
 	//moveCamera();//off while setting up
 	m_gamePlayer.update(t_deltaTime);
+	for (int i = 0; i < m_platforms.size(); i++)
+	{
+		m_gamePlayer.hitBlock(m_platforms[i].getBody());
+	}
 }
 
 /// <summary>
