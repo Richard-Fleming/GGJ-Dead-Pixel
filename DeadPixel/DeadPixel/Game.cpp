@@ -1,14 +1,4 @@
-/// <summary>
-/// @author Peter Lowe
-/// @date May 2019
-///
-/// you need to change the above lines or lose marks
-/// </summary>
-
 #include "Game.h"
-#include <iostream>
-
-
 
 /// <summary>
 /// default constructor
@@ -19,6 +9,7 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
+	, m_currentLevel{ 1 }
 {
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
@@ -127,4 +118,13 @@ void Game::setupFontAndText()
 /// </summary>
 void Game::setupSprite()
 {
+}
+
+void Game::levelLoader(Block t_block)
+{
+	std::ofstream levelFile("Level" + std::to_string(m_currentLevel) + ".txt");
+	if (levelFile.is_open())
+	{
+
+	}
 }
