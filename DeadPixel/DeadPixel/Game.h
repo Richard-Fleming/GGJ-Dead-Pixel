@@ -9,6 +9,8 @@
 #include "Player.h"
 #include "ScreenSize.h"
 
+enum class Gamestate{Gameplay, Win};
+
 class Game
 {
 public:
@@ -41,8 +43,15 @@ private:
 	bool m_exitGame; // control exiting game
 
 	int m_currentLevel;
+	int const M_MAX_LEVEL;
+	int m_alpha;
+	int m_alphaDecrement;
 	sf::Sprite m_bucket;
 	sf::Texture m_bucketTexture;
+	sf::Sprite m_finalSprite;
+	sf::Texture m_finalSpriteTexture;
+	sf::Sprite m_grayScreen;
+	sf::Texture m_grayScreenTexture;
 	sf::Vector2f m_position;
 	std::string m_xPosString;
 	std::string m_yPosString;
@@ -52,6 +61,7 @@ private:
 	std::stringstream m_converter;
 	Block m_tempBlock;
 	std::vector<Block> m_platforms;
+	Gamestate m_currentState;
 };
 
 #endif // !GAME_HPP

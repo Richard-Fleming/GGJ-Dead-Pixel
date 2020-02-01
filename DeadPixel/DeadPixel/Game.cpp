@@ -10,12 +10,15 @@ Game::Game() :
 	m_window{ sf::VideoMode{ s_screenWidth, s_screenHeight, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
 	, m_currentLevel{ 1 }
+	, m_currentState{Gamestate::Gameplay}
+	, M_MAX_LEVEL{3}
 {
+	m_alpha = 255;
+	m_alphaDecrement = m_alpha / M_MAX_LEVEL;
 	m_startCam = sf::Vector2f(800.0f, 600.0f);//should be set off player position
-	levelLoader();
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
-	
+	levelLoader();
 	m_endCam = sf::Vector2f(1400.0f, 600.0f);//should be set off end position
 	m_cameraSpeed = 1;//may be based off level
 	m_gamePlayer.initialise();
@@ -102,20 +105,52 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-	moveCamera();//off while setting up
-	m_gamePlayer.update(t_deltaTime);
-	for (int i = 0; i < m_platforms.size(); i++)
+	if (m_currentState == Gamestate::Gameplay)
 	{
-		m_platforms[i].playerContact(m_gamePlayer.hitBlock(m_platforms[i].getBody()), m_gamePlayer.getBody().getFillColor());
-		m_platforms[i].update();
-	}
-	if (m_gamePlayer.getBody().getGlobalBounds().intersects(m_bucket.getGlobalBounds()))
-	{
-		m_currentLevel++;
-		m_cameraSpeed++;
-		m_platforms.clear();
-		m_gamePlayer.initialise();
-		levelLoader();
+		moveCamera();//off while setting up
+		m_gamePlayer.update(t_deltaTime);
+		for (int i = 0; i < m_platforms.size(); i++)
+		{
+			m_platforms[i].playerContact(m_gamePlayer.hitBlock(m_platforms[i].getBody()),
+				m_gamePlayer.ColorArray[m_gamePlayer.colorNum]);
+			if (m_window.getView().getCenter().x - s_screenWidth / 2 > m_platforms[i].getBody().getPosition().x + m_platforms[i].getBody().getGlobalBounds().width
+				&&  m_platforms[i].getBody().getFillColor() == sf::Color(100, 100, 100))
+			{
+				m_gamePlayer.playerState = false;
+			}
+			m_platforms[i].update();
+		}
+		
+		if (m_gamePlayer.playerState == false)
+		{
+			m_platforms.clear();
+			if (m_gamePlayer.getBody().getPosition().y >= s_screenHeight - 20)
+			{
+				m_finalSprite.setPosition(0, 0);
+				m_grayScreen.setPosition(0, 0);
+				m_gamePlayer.initialise();
+				levelLoader();
+			}
+		}
+		if (m_gamePlayer.getBody().getGlobalBounds().intersects(m_bucket.getGlobalBounds()))
+		{
+			m_currentLevel++;
+			if(m_currentLevel == M_MAX_LEVEL)
+			{
+				m_currentState = Gamestate::Win;
+			}
+			else
+			{
+				m_alpha = m_alpha - m_alphaDecrement;
+				m_grayScreen.setColor(sf::Color(255, 255, 255, m_alpha));
+				m_cameraSpeed++;
+				m_finalSprite.setPosition(0, 0);
+				m_grayScreen.setPosition(0, 0);
+				m_platforms.clear();
+				m_gamePlayer.initialise();
+				levelLoader();
+			}
+		}
 	}
 }
 
@@ -125,12 +160,21 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear();
-	for (int i = 0; i < m_platforms.size(); i++)
+	if (m_currentState == Gamestate::Gameplay)
 	{
-		m_platforms[i].draw(m_window);
+		m_window.draw(m_finalSprite);
+		m_window.draw(m_grayScreen);
+		for (int i = 0; i < m_platforms.size(); i++)
+		{
+			m_platforms[i].draw(m_window);
+		}
+		m_gamePlayer.render(m_window);
+		m_window.draw(m_bucket);
 	}
-	m_gamePlayer.render(m_window);
-	m_window.draw(m_bucket);
+	else if (m_currentState == Gamestate::Win)
+	{
+		m_window.draw(m_finalSprite);
+	}
 	m_window.display();
 }
 
@@ -152,6 +196,18 @@ void Game::setupSprite()
 		std::cout << "Bucket's fucked up." << std::endl;
 	}
 	m_bucket.setTexture(m_bucketTexture);
+
+	if (!m_finalSpriteTexture.loadFromFile("ASSETS//IMAGES//WinScreen.jpg"))
+	{
+		std::cout << "Finale's fucked up." << std::endl;
+	}
+	m_finalSprite.setTexture(m_finalSpriteTexture);
+
+	if (!m_grayScreenTexture.loadFromFile("ASSETS//IMAGES//ShitScreen.jpg"))
+	{
+		std::cout << "Fucked up screen's fucked up." << std::endl;
+	}
+	m_grayScreen.setTexture(m_grayScreenTexture);
 }
 
 void Game::moveCamera()
@@ -161,6 +217,8 @@ void Game::moveCamera()
 	{
 		tempView.setCenter(tempView.getCenter().x + m_cameraSpeed, tempView.getCenter().y);
 		m_window.setView(tempView);
+		m_finalSprite.setPosition(m_finalSprite.getPosition().x + m_cameraSpeed, m_finalSprite.getPosition().y);
+		m_grayScreen.setPosition(m_grayScreen.getPosition().x + m_cameraSpeed, m_grayScreen.getPosition().y);
 	}
 }
 
