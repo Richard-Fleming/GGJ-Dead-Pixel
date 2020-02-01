@@ -39,7 +39,12 @@ void Player::processKeys(sf::Event t_newEvent)
 	{
 		if (sf::Keyboard::Space == t_newEvent.key.code )
 		{
-			jump();
+			
+			spacePressed++;
+			if (spacePressed < 3)
+			{
+				jump();
+			}
 		}
 	}
 	if (sf::Keyboard::D == t_newEvent.key.code)
@@ -75,6 +80,7 @@ void Player::stopPlayer()
 	if (m_playerLocation.y >= s_screenHeight-20)
 	{
 		m_playerVelocity.y = 0;
+		spacePressed = 0;
 		m_playerLocation.y = s_screenHeight-20;
 	}
 }
@@ -105,7 +111,19 @@ void Player::slowPlayer()
 
 void Player::jump()
 {
-	m_playerVelocity += Jumppower;
+	if (spacePressed == 1)
+	{
+		m_playerVelocity.y = 0;
+		m_playerVelocity.y += Jumppower.y;
+	}
+	else if (spacePressed == 2)
+	{
+		if (m_playerVelocity.y > 0)
+		{
+			m_playerVelocity.y = 0;
+		}
+		m_playerVelocity.y += (Jumppower.y / 1.5);
+	}
 }
 
 void Player::left()
