@@ -30,10 +30,13 @@ private:
 	
 	void setupFontAndText();
 	void setupSprite();
+	void moveCamera();
 
 	sf::RenderWindow m_window; // main SFML window
 	bool m_exitGame; // control exiting game
 
+	sf::Vector2f m_startCam, m_endCam;
+	float m_cameraSpeed;
 };
 
 #endif // !GAME_HPP

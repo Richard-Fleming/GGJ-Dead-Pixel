@@ -17,11 +17,15 @@
 /// load and setup thne image
 /// </summary>
 Game::Game() :
-	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ 1600U, 1200U, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
 {
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
+
+	m_startCam = sf::Vector2f(800.0f, 600.0f);//should be set off player position
+	m_endCam = sf::Vector2f(1600.0f, 600.0f);//should be set off end position
+	m_cameraSpeed = 1;//may be based off level
 }
 
 /// <summary>
@@ -103,6 +107,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+	moveCamera();
 }
 
 /// <summary>
@@ -127,4 +132,11 @@ void Game::setupFontAndText()
 /// </summary>
 void Game::setupSprite()
 {
+}
+
+void Game::moveCamera()
+{
+	sf::View tempView = m_window.getView();
+	tempView.setCenter(tempView.getCenter().x + m_cameraSpeed, tempView.getCenter().y);
+	m_window.setView(tempView);
 }
