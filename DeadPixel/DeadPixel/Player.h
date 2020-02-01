@@ -19,6 +19,7 @@ public:
 	void right();
 	void fall();
 	void colorRandomiser();
+	sf::RectangleShape getBody();
 	bool hitBlock(sf::RectangleShape t_block);
 	int colorNum = 0;
 	sf::Color ColorArray[6] = { sf::Color::Blue,sf::Color::Green,sf::Color::Red,sf::Color::Magenta,sf::Color::Yellow,sf::Color::Cyan };

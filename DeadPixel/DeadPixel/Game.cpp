@@ -11,12 +11,12 @@ Game::Game() :
 	m_exitGame{false} //when true game will exit
 	, m_currentLevel{ 1 }
 {
+	levelLoader();
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
 	m_startCam = sf::Vector2f(800.0f, 600.0f);//should be set off player position
 	m_endCam = sf::Vector2f(1600.0f, 600.0f);//should be set off end position
 	m_cameraSpeed = 1;//may be based off level
-	levelLoader();
 	m_gamePlayer.initialise();
 }
 
@@ -108,6 +108,14 @@ void Game::update(sf::Time t_deltaTime)
 		m_platforms[i].playerContact(m_gamePlayer.hitBlock(m_platforms[i].getBody()), 
 															m_gamePlayer.ColorArray[m_gamePlayer.colorNum]);
 	}
+	if (m_gamePlayer.getBody().getGlobalBounds().intersects(m_bucket.getGlobalBounds()))
+	{
+		m_currentLevel++;
+		m_cameraSpeed++;
+		m_platforms.clear();
+		m_gamePlayer.initialise();
+		levelLoader();
+	}
 }
 
 /// <summary>
@@ -121,6 +129,7 @@ void Game::render()
 		m_platforms[i].draw(m_window);
 	}
 	m_gamePlayer.render(m_window);
+	m_window.draw(m_bucket);
 	m_window.display();
 }
 
@@ -137,6 +146,13 @@ void Game::setupFontAndText()
 /// </summary>
 void Game::setupSprite()
 {
+	if (!m_bucketTexture.loadFromFile("ASSETS//IMAGES//bucket.png"))
+	{
+		std::cout << "Bucket's fucked up." << std::endl;
+	}
+	m_bucket.setTexture(m_bucketTexture);
+	m_bucket.setPosition(m_platforms[3].getBody().getPosition().x - (m_bucket.getGlobalBounds().width / 2) + (m_platforms[3].getBody().getGlobalBounds().width / 2), 
+						m_platforms[3].getBody().getPosition().y - m_bucket.getGlobalBounds().height);
 }
 
 void Game::moveCamera()
@@ -184,4 +200,6 @@ void Game::levelLoader()
 		}
 		levelFile.close();
 	}
+	m_bucket.setPosition(m_platforms[m_platforms.size() - 1].getBody().getPosition().x - (m_bucket.getGlobalBounds().width / 2) + (m_platforms[m_platforms.size() - 1].getBody().getGlobalBounds().width / 2),
+		m_platforms[m_platforms.size() - 1].getBody().getPosition().y - m_bucket.getGlobalBounds().height);
 }

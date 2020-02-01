@@ -184,6 +184,11 @@ void Player::colorRandomiser()
 
 }
 
+sf::RectangleShape Player::getBody()
+{
+	return m_player;
+}
+
 bool Player::hitBlock(sf::RectangleShape t_block)
 {
 	if (m_player.getGlobalBounds().intersects(t_block.getGlobalBounds()))

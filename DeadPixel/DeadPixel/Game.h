@@ -41,6 +41,8 @@ private:
 	bool m_exitGame; // control exiting game
 
 	int m_currentLevel;
+	sf::Sprite m_bucket;
+	sf::Texture m_bucketTexture;
 	sf::Vector2f m_position;
 	std::string m_xPosString;
 	std::string m_yPosString;
