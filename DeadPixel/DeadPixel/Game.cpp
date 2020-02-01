@@ -9,9 +9,9 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ s_screenWidth, s_screenHeight, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
-	, m_currentLevel{ 3 }
+	, m_currentLevel{ 4 }
 	, m_currentState{Gamestate::Gameplay}
-	, M_MAX_LEVEL{4}
+	, M_MAX_LEVEL{5}
 {
 	m_alpha = 255;
 	m_alphaDecrement = m_alpha / M_MAX_LEVEL;
@@ -19,7 +19,7 @@ Game::Game() :
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
 	levelLoader();
-	m_cameraSpeed = 2;//may be based off level
+	m_cameraSpeed = 5;//may be based off level
 	m_gamePlayer.initialise();
 }
 

@@ -2,6 +2,7 @@
 /// simple game loop for SFML[2.5.1]
 /// 
 /// Author: Cameran luton
+/// Author: Richard Fleming
 /// 
 /// </summary>
 
