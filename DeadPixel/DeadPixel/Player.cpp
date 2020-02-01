@@ -11,6 +11,7 @@ Player::~Player()
 void Player::initialise()
 {
 	srand(time(NULL));
+	playerState = true;
 	m_playerLocation = { 150, 100 };
 	m_playerVelocity = { 0,0 };
 	m_player.setPosition(m_playerLocation);
@@ -71,16 +72,13 @@ void Player::stopPlayer()
 	{
 		m_playerVelocity = { 0,0 };
 	}
-	if (m_playerLocation.x >= s_screenWidth-10)
-	{
-		m_playerVelocity = { 0,0 };
-	}
 
 	if (m_playerLocation.y >= s_screenHeight-20)
 	{
-		m_playerVelocity.y = 0;
+		/*m_playerVelocity.y = 0;
 		spacePressed = 0;
-		m_playerLocation.y = s_screenHeight-20;
+		m_playerLocation.y = s_screenHeight-20;*/
+		playerState = false;
 
 	}
 }
