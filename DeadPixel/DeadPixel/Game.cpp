@@ -9,7 +9,7 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ s_screenWidth, s_screenHeight, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
-	, m_currentLevel{ 1 }
+	, m_currentLevel{ 2 }
 	, m_currentState{Gamestate::Gameplay}
 	, M_MAX_LEVEL{4}
 {
@@ -19,8 +19,7 @@ Game::Game() :
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
 	levelLoader();
-	m_endCam = sf::Vector2f(1400.0f, 600.0f);//should be set off end position
-	m_cameraSpeed = 1;//may be based off level
+	m_cameraSpeed = 2;//may be based off level
 	m_gamePlayer.initialise();
 }
 
@@ -138,6 +137,7 @@ void Game::update(sf::Time t_deltaTime)
 			if(m_currentLevel == M_MAX_LEVEL)
 			{
 				m_currentState = Gamestate::Win;
+				//m_grayScreen.setColor(sf::Color(255, 255, 255, m_alpha));
 			}
 			else
 			{
@@ -173,6 +173,7 @@ void Game::render()
 	}
 	else if (m_currentState == Gamestate::Win)
 	{
+		//m_window.draw(m_grayScreen);
 		m_window.draw(m_finalSprite);
 	}
 	m_window.display();
