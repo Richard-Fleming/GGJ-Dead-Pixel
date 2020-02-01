@@ -137,7 +137,8 @@ void Game::update(sf::Time t_deltaTime)
 			if(m_currentLevel == M_MAX_LEVEL)
 			{
 				m_currentState = Gamestate::Win;
-				//m_grayScreen.setColor(sf::Color(255, 255, 255, m_alpha));
+				m_alpha = 255;
+				m_grayScreen.setColor(sf::Color(255, 255, 255, m_alpha));
 			}
 			else
 			{
@@ -150,6 +151,14 @@ void Game::update(sf::Time t_deltaTime)
 				m_gamePlayer.initialise();
 				levelLoader();
 			}
+		}
+	}
+	if (m_currentState == Gamestate::Win)
+	{
+		if (m_alpha != 0)
+		{
+			m_alpha -= 1;
+			m_grayScreen.setColor(sf::Color(255, 255, 255, m_alpha));
 		}
 	}
 }
@@ -173,8 +182,8 @@ void Game::render()
 	}
 	else if (m_currentState == Gamestate::Win)
 	{
-		//m_window.draw(m_grayScreen);
 		m_window.draw(m_finalSprite);
+		m_window.draw(m_grayScreen);
 	}
 	m_window.display();
 }
