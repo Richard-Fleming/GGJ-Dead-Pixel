@@ -9,9 +9,9 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ s_screenWidth, s_screenHeight, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
-	, m_currentLevel{ 6 }
+	, m_currentLevel{ 7 }
 	, m_currentState{Gamestate::Gameplay}
-	, M_MAX_LEVEL{7}
+	, M_MAX_LEVEL{8}
 {
 	m_alpha = 255;
 	m_alphaDecrement = m_alpha / M_MAX_LEVEL;
