@@ -89,5 +89,8 @@
     <Text Include="Levels\Level4.txt">
       <Filter>Resource Files\Levels</Filter>
     </Text>
+    <Text Include="Levels\Level10.txt">
+      <Filter>Resource Files\Levels</Filter>
+    </Text>
   </ItemGroup>
 </Project>
