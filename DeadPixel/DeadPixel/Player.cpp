@@ -119,15 +119,12 @@ void Player::stopPlayer()
 
 void Player::slowPlayer()
 {
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D)
+		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		m_playerVelocity.x *= 0.95;
+	}
 	
-	
-		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D)
-			&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			m_playerVelocity.x *= 0.95;
-		}
-	
-
 	if (m_playerVelocity.x < 0.2 && m_playerVelocity.x > -0.2)
 	{
 		m_playerVelocity.x = 0;
