@@ -9,7 +9,7 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ s_screenWidth, s_screenHeight, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
-	, m_currentLevel{ 10 }
+	, m_currentLevel{ 1 }
 	, m_currentState{Gamestate::Gameplay}
 	, M_MAX_LEVEL{11}
 {
@@ -19,8 +19,9 @@ Game::Game() :
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
 	levelLoader();
-	m_cameraSpeed = 6;//may be based off level
+	m_cameraSpeed = 2;//may be based off level
 	m_gamePlayer.initialise();
+
 }
 
 /// <summary>
@@ -151,7 +152,7 @@ void Game::update(sf::Time t_deltaTime)
 				m_grayScreen.setColor(sf::Color(255, 255, 255, m_alpha));
 				if (m_cameraSpeed < 6)
 				{
-					m_cameraSpeed++;
+					m_cameraSpeed *= 1.11;
 				}
 				m_finalSprite.setPosition(0, 0);
 				m_grayScreen.setPosition(0, 0);

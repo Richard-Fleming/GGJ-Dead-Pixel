@@ -87,6 +87,7 @@
       <Filter>Resource Files\Levels</Filter>
     </Text>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Text Include="Levels\Level4.txt">
       <Filter>Resource Files\Levels</Filter>
     </Text>
@@ -94,6 +95,9 @@
 =======
     <Text Include="Levels\Level8.txt">
 >>>>>>> f668eb33d16b1ae0c42bb0a9af43d3de5d3697fc
+=======
+    <Text Include="Levels\Level9.txt">
+>>>>>>> 20459de0d0eaa887a697ac22d7ca2e72d35301ae
       <Filter>Resource Files\Levels</Filter>
     </Text>
   </ItemGroup>
