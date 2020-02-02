@@ -3,7 +3,7 @@
 /// 
 /// Author: Cameran luton
 /// Author: Richard Fleming
-/// 
+/// Author: Quintin Furlong
 /// </summary>
 
 #ifdef _DEBUG 
