@@ -58,9 +58,6 @@
     <Image Include="ASSETS\IMAGES\Brush.png">
       <Filter>Resource Files\IMAGES</Filter>
     </Image>
-    <Image Include="ASSETS\IMAGES\BrushBristle.png">
-      <Filter>Resource Files\IMAGES</Filter>
-    </Image>
     <Image Include="ASSETS\IMAGES\BrushHandle.png">
       <Filter>Resource Files\IMAGES</Filter>
     </Image>
@@ -80,7 +77,13 @@
     <Text Include="Levels\Level3.txt">
       <Filter>Resource Files\Levels</Filter>
     </Text>
-    <Text Include="Levels\Level4.txt">
+    <Text Include="Levels\Level5.txt">
+      <Filter>Resource Files\Levels</Filter>
+    </Text>
+    <Text Include="Levels\Level6.txt">
+      <Filter>Resource Files\Levels</Filter>
+    </Text>
+    <Text Include="Levels\Level7.txt">
       <Filter>Resource Files\Levels</Filter>
     </Text>
   </ItemGroup>
